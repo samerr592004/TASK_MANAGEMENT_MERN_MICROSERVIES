@@ -32,7 +32,6 @@ app.get('/users', async (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const {name, email} = req.body
-    console.log('Received user data:', {name, email})
     const user = new User({name, email})
     await user.save()
     res.status(201).json(user)
@@ -50,5 +49,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`User service listening on port ${port}`)
 })
