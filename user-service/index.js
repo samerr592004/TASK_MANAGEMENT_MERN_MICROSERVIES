@@ -7,7 +7,7 @@ const port = 3001
 
 app.use(bodyParser.json())
 
-mongoose.connect('mongodb://localhost:27017/users').then(() => {
+mongoose.connect('mongodb://mongo:27017/users').then(() => {
   console.log('Connected to MongoDB')
 }).catch((err) => {
   console.error('Error connecting to MongoDB', err)
@@ -32,10 +32,12 @@ app.get('/users', async (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const {name, email} = req.body
+    console.log('Received user data:', {name, email})
     const user = new User({name, email})
     await user.save()
     res.status(201).json(user)
   } catch (error) {
+    console.error('Error creating user:', error)
     res.status(500).json({ error: error.message })
   }
 })
